@@ -45,14 +45,12 @@ Plug 'vim-scripts/CSApprox'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
-" Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
-Plug 'sheerun/vim-polyglot'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'w0rp/ale'
-
+Plug 'christoomey/vim-tmux-navigator'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -100,6 +98,7 @@ Plug 'mattn/emmet-vim'
 "" Python Bundle
 Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+Plug 'vim-python/python-syntax'
 
 
 "*****************************************************************************
@@ -113,7 +112,9 @@ endif
 call plug#end()
 
 " Required:
-filetype plugin indent on
+filetype indent on
+filetype on
+filetype plugin on
 
 
 "*****************************************************************************
@@ -132,12 +133,11 @@ set backspace=indent,eol,start
 
 "" Tabs. May be overriten by autocmd rules
 set tabstop=4
-set softtabstop=0
+set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
 set autoindent
-
 "" Map leader to ,
 let mapleader=','
 
@@ -149,6 +149,8 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+
 
 "" Directories for swp files
 set nobackup
@@ -277,7 +279,7 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
+let g:NERDTreeWinSize = 30
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
@@ -404,20 +406,14 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 
 " snippets
 let g:UltiSnipsSnippetDirectories = ['~/.vim/plugged/vim-snippets/UltiSnips']
-" let g:UltisnipsSnippetDirectories=["~/.vim/plugged/vim-snippets/UltiSnips"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 
-" syntastic
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_error_symbol='✗'
-" let g:syntastic_warning_symbol='⚠'
-" let g:syntastic_style_error_symbol = '✗'
-" let g:syntastic_style_warning_symbol = '⚠'
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_aggregate_errors = 1
+" Smarter search control
+map <SPACE> /
+
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -473,6 +469,13 @@ vnoremap K :m '<-2<CR>gv=gv
 "" Open current line on GitHub
 nnoremap <Leader>o :.Gbrowse<CR>
 
+"" Remaps escape to leader Tab
+nnoremap <Tab> <Esc>
+vnoremap <Tab> <Esc>gV
+onoremap <Tab> <Esc>
+inoremap <Leader><Tab> <Esc>`^
+" inoremap <Leader><Tab> <Tab>
+
 "*****************************************************************************
 "" Custom configs
 "*****************************************************************************
@@ -483,13 +486,9 @@ autocmd Filetype html setlocal ts=2 sw=2 expandtab
 
 
 " python
-" vim-python
-augroup vimrc-python
-  autocmd!
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
-      \ formatoptions+=croq softtabstop=4
-      \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-augroup END
+let g:python_highlight_all = 1
+
+
 
 " jedi-vim
 let g:jedi#popup_on_dot = 0
@@ -502,17 +501,9 @@ let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
-" " syntastic
-" let g:syntastic_python_checkers=['python', 'flake8']
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
-
-" Syntax highlight
-" Default highlight is better than polyglot
-let g:polyglot_disabled = ['python']
-let g:polyglot_disabled = ['markdown']
-let python_highlight_all = 1
 
 
 "*****************************************************************************
