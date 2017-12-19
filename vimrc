@@ -51,6 +51,9 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'w0rp/ale'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'jpalardy/vim-slime'
+Plug 'ervandew/supertab'
+Plug 'junegunn/limelight.vim'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -72,8 +75,8 @@ if v:version >= 703
   Plug 'Shougo/vimshell.vim'
 endif
 
-if v:version >= 704
-  "" Snippets
+ if v:version >= 704
+  " Snippets
   Plug 'SirVer/ultisnips'
 endif
 
@@ -81,6 +84,8 @@ Plug 'honza/vim-snippets'
 
 "" Color
 Plug 'tomasr/molokai'
+Plug 'chriskempson/base16-vim'
+Plug 'nanotech/jellybeans.vim'
 
 "*****************************************************************************
 "" Custom bundles
@@ -99,7 +104,7 @@ Plug 'mattn/emmet-vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plug 'vim-python/python-syntax'
-
+Plug 'fs111/pydoc.vim'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -188,6 +193,8 @@ if !exists('g:not_finish_vimplug')
   colorscheme molokai
 endif
 
+let g:molokai_original = 1
+
 set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
@@ -207,7 +214,7 @@ else
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
 
-  
+
   if $COLORTERM == 'gnome-terminal'
     set term=gnome-256color
   else
@@ -215,7 +222,7 @@ else
       set term=xterm-256color
     endif
   endif
-  
+
 endif
 
 
@@ -300,6 +307,12 @@ if g:vim_bootstrap_editor == 'nvim'
 else
   nnoremap <silent> <leader>sh :VimShellCreate<CR>
 endif
+
+" Vim-Slime
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_python_ipython = 1
+
 
 "*****************************************************************************
 "" Functions
@@ -405,11 +418,24 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>e :FZF -m<CR>
 
 " snippets
-let g:UltiSnipsSnippetDirectories = ['~/.vim/plugged/vim-snippets/UltiSnips']
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsEditSplit="vertical"
+ let g:UltiSnipsSnippetDirectories = ['~/.vim/plugged/vim-snippets/UltiSnips']
+ let g:UltiSnipsExpandTrigger="<C-j>"
+ let g:UltiSnipsJumpForwardTrigger="<C-j>"
+ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+ let g:UltiSnipsEditSplit="vertical"
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabContextDefaultCompletionType ="<c-x><c-o>"
+"let g:SuperTabDefaultCompletionTypeDiscovery = [
+"\ "&completefunc:<c-x><c-u>",
+"\ "&omnifunc:<c-x><c-o>",
+"\ ]
+
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+
 
 " Smarter search control
 map <SPACE> /
@@ -476,6 +502,10 @@ onoremap <Tab> <Esc>
 inoremap <Leader><Tab> <Esc>`^
 " inoremap <Leader><Tab> <Tab>
 
+" mapping <F5> to running pythonscript
+nnoremap <F5> <esc>:w !python %<CR>
+inoremap <F5> <esc>:w !python %<CR>
+
 "*****************************************************************************
 "" Custom configs
 "*****************************************************************************
@@ -488,19 +518,21 @@ autocmd Filetype html setlocal ts=2 sw=2 expandtab
 " python
 let g:python_highlight_all = 1
 
-
+" PyDoc
+let g:pydoc_cmd = "/home/kaslangg/anaconda3/bin/pydoc"
 
 " jedi-vim
 let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
-let g:jedi#completions_command = "<C-Space>"
+let g:jedi#goto_assignments_command ="<leader>g"
+let g:jedi#goto_definitions_command ="<leader>d"
+let g:jedi#documentation_command ="K"
+let g:jedi#usages_command ="<leader>n"
+let g:jedi#rename_command ="<leader>r"
+let g:jedi#show_call_signatures ="0"
+let g:jedi#completions_command ="<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
+autocmd FileType python setlocal completeopt-=preview
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
