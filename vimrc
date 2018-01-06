@@ -312,7 +312,8 @@ endif
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
 let g:slime_python_ipython = 1
-
+let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
+let g:slime_dont_ask_default = 1
 
 "*****************************************************************************
 "" Functions
@@ -537,6 +538,9 @@ autocmd FileType python setlocal completeopt-=preview
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
 
+" ALE
+" let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
 
 "*****************************************************************************
 "*****************************************************************************
