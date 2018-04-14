@@ -287,6 +287,8 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
@@ -427,15 +429,11 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "context"
-" let g:SuperTabContextDefaultCompletionType ="<c-x><c-o>"
-"let g:SuperTabDefaultCompletionTypeDiscovery = [
-"\ "&completefunc:<c-x><c-u>",
-"\ "&omnifunc:<c-x><c-o>",
-"\ ]
+let g:SuperTabContextDefaultCompletionType ="<c-x><c-o>"
 
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
 
 
 " Smarter search control
