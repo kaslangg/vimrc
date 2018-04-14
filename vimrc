@@ -422,10 +422,11 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 
 " snippets
  let g:UltiSnipsSnippetDirectories = ['~/.vim/plugged/vim-snippets/UltiSnips']
- let g:UltiSnipsExpandTrigger="<C-j>"
- let g:UltiSnipsJumpForwardTrigger="<C-j>"
- let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+ let g:UltiSnipsExpandTrigger="<tab>"
+ let g:UltiSnipsJumpForwardTrigger="<tab>"
+ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
  let g:UltiSnipsEditSplit="vertical"
+ let g:UltiSnipsPythonVersion = 3
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "context"
@@ -433,7 +434,7 @@ let g:SuperTabContextDefaultCompletionType ="<c-x><c-o>"
 
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
+let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>","&omnifunc:<c-x><c-o>"]
 
 
 " Smarter search control
@@ -527,7 +528,7 @@ let g:jedi#goto_definitions_command ="<leader>d"
 let g:jedi#documentation_command ="K"
 let g:jedi#usages_command ="<leader>n"
 let g:jedi#rename_command ="<leader>r"
-let g:jedi#show_call_signatures ="0"
+let g:jedi#show_call_signatures ="1"
 let g:jedi#completions_command ="<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
