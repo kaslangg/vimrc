@@ -54,6 +54,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'jpalardy/vim-slime'
 Plug 'ervandew/supertab'
 Plug 'junegunn/limelight.vim'
+Plug 'niftylettuce/vim-jinja'
+",Plug 'glench/vim-jinja2-syntax'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -435,7 +437,11 @@ let g:SuperTabContextDefaultCompletionType ="<c-x><c-o>"
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>","&omnifunc:<c-x><c-o>"]
-
+autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-n>") |
+    \   call SuperTabSetDefaultCompletionType("context") |
+    \ endif
 
 " Smarter search control
 map <SPACE> /
@@ -513,6 +519,7 @@ inoremap <F5> <esc>:w !python %<CR>
 " html
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype jinja setlocal ts=2 sw=2 expandtab
 
 
 " python
