@@ -55,7 +55,6 @@ Plug 'jpalardy/vim-slime'
 Plug 'ervandew/supertab'
 Plug 'junegunn/limelight.vim'
 Plug 'niftylettuce/vim-jinja'
-",Plug 'glench/vim-jinja2-syntax'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -489,6 +488,11 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
+
+"" Moving to end and insert lines in Insert Mode
+imap <C-l> <Esc>$a
+imap <C-k> <Esc>0<S-o>
+imap <C-j> <Esc>$o
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
